@@ -7,7 +7,7 @@
     "lastName": "Stark",
     "email": "tony@stark.com",
     "dob": "1970-05-29",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "122",
@@ -17,7 +17,7 @@
     "lastName": "Wayne",
     "email": "bruce@wayne.com",
     "dob": "1972-02-19",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "123",
@@ -27,7 +27,7 @@
     "lastName": "Rogers",
     "email": "steve@avengers.com",
     "dob": "1918-07-04",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "124",
@@ -37,7 +37,7 @@
     "lastName": "Romanoff",
     "email": "natasha@avengers.com",
     "dob": "1984-11-22",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "125",
@@ -47,7 +47,7 @@
     "lastName": "Odinson",
     "email": "thor@asgard.com",
     "dob": "982-05-25",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "126",
@@ -57,7 +57,7 @@
     "lastName": "Banner",
     "email": "bruce@avengers.com",
     "dob": "1969-12-18",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "127",
@@ -67,7 +67,7 @@
     "lastName": "Wonderland",
     "email": "tony@stark.com",
     "dob": "1970-05-29",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "128",
@@ -77,7 +77,7 @@
     "lastName": "Leia",
     "email": "bruce@wayne.com",
     "dob": "1972-02-19",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "129",
@@ -87,7 +87,7 @@
     "lastName": "Skywalker",
     "email": "steve@avengers.com",
     "dob": "1918-07-04",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "130",
@@ -97,7 +97,7 @@
     "lastName": "Solo",
     "email": "natasha@avengers.com",
     "dob": "1984-11-22",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "131",
@@ -107,7 +107,7 @@
     "lastName": "Asibey",
     "email": "thor@asgard.com",
     "dob": "982-05-25",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "132",
@@ -117,7 +117,7 @@
     "lastName": "Chen",
     "email": "bruce@avengers.com",
     "dob": "1969-12-18",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "133",
@@ -127,7 +127,7 @@
     "lastName": "Stark",
     "email": "tony@stark.com",
     "dob": "1970-05-29",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "134",
@@ -137,7 +137,7 @@
     "lastName": "Wayne",
     "email": "bruce@wayne.com",
     "dob": "1972-02-19",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "135",
@@ -147,7 +147,7 @@
     "lastName": "Rogers",
     "email": "steve@avengers.com",
     "dob": "1918-07-04",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "136",
@@ -157,7 +157,7 @@
     "lastName": "Romanoff",
     "email": "natasha@avengers.com",
     "dob": "1984-11-22",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "137",
@@ -167,7 +167,7 @@
     "lastName": "Odinson",
     "email": "thor@asgard.com",
     "dob": "982-05-25",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "138",
@@ -177,7 +177,7 @@
     "lastName": "Banner",
     "email": "bruce@avengers.com",
     "dob": "1969-12-18",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "139",
@@ -187,7 +187,7 @@
     "lastName": "Stark",
     "email": "tony@stark.com",
     "dob": "1970-05-29",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "140",
@@ -197,7 +197,7 @@
     "lastName": "Wayne",
     "email": "bruce@wayne.com",
     "dob": "1972-02-19",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "141",
@@ -207,7 +207,7 @@
     "lastName": "Rogers",
     "email": "steve@avengers.com",
     "dob": "1918-07-04",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "142",
@@ -217,7 +217,7 @@
     "lastName": "Romanoff",
     "email": "natasha@avengers.com",
     "dob": "1984-11-22",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "143",
@@ -227,7 +227,7 @@
     "lastName": "Odinson",
     "email": "thor@asgard.com",
     "dob": "982-05-25",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "144",
@@ -237,7 +237,7 @@
     "lastName": "Banner",
     "email": "bruce@avengers.com",
     "dob": "1969-12-18",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "145",
@@ -247,7 +247,7 @@
     "lastName": "Wonderland",
     "email": "tony@stark.com",
     "dob": "1970-05-29",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "146",
@@ -257,7 +257,7 @@
     "lastName": "Leia",
     "email": "bruce@wayne.com",
     "dob": "1972-02-19",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "147",
@@ -267,7 +267,7 @@
     "lastName": "Skywalker",
     "email": "steve@avengers.com",
     "dob": "1918-07-04",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "148",
@@ -277,7 +277,7 @@
     "lastName": "Solo",
     "email": "natasha@avengers.com",
     "dob": "1984-11-22",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "149",
@@ -287,7 +287,7 @@
     "lastName": "Asibey",
     "email": "thor@asgard.com",
     "dob": "982-05-25",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "150",
@@ -297,7 +297,7 @@
     "lastName": "Chen",
     "email": "bruce@avengers.com",
     "dob": "1969-12-18",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "151",
@@ -307,7 +307,7 @@
     "lastName": "Stark",
     "email": "tony@stark.com",
     "dob": "1970-05-29",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "152",
@@ -317,7 +317,7 @@
     "lastName": "Wayne",
     "email": "bruce@wayne.com",
     "dob": "1972-02-19",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "153",
@@ -327,7 +327,7 @@
     "lastName": "Rogers",
     "email": "steve@avengers.com",
     "dob": "1918-07-04",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "154",
@@ -337,7 +337,7 @@
     "lastName": "Romanoff",
     "email": "natasha@avengers.com",
     "dob": "1984-11-22",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "155",
@@ -347,7 +347,7 @@
     "lastName": "Odinson",
     "email": "thor@asgard.com",
     "dob": "982-05-25",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "156",
@@ -357,7 +357,7 @@
     "lastName": "Banner",
     "email": "bruce@avengers.com",
     "dob": "1969-12-18",
-    "role": "STUDENT"
+    "role": "CUSTOMER"
   },
   {
     "_id": "157",
@@ -367,7 +367,7 @@
     "lastName": "Baggins",
     "email": "frodo@shire.com",
     "dob": "1368-09-22",
-    "role": "FACULTY"
+    "role": "MERCHANT"
   },
   {
     "_id": "158",
@@ -377,7 +377,7 @@
     "lastName": "Elessar",
     "email": "aragorn@gondor.com",
     "dob": "2931-03-01",
-    "role": "FACULTY"
+    "role": "MERCHANT"
   },
   {
     "_id": "159",
@@ -387,6 +387,16 @@
     "lastName": "Greenleaf",
     "email": "legolas@mirkwood.com",
     "dob": "2879-07-15",
-    "role": "FACULTY"
+    "role": "MERCHANT"
+  },
+  {
+    "_id": "159",
+    "username": "tom_brady",
+    "password": "tom123",
+    "firstName": "Tom",
+    "lastName": "Brady",
+    "email": "tombrady@gamil.com",
+    "dob": "2879-07-15",
+    "role": "DELIVERY"
   }
 ]

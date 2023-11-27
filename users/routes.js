@@ -1,28 +1,28 @@
 import Database from "../Database/index.js";
 function UserRoutes(app) {
-  app.get("/users", async (req, res) => {
-    const users = await Database.Users.findAll();
-    res.json(users);
-  });
-
-  app.get("/users/:id", async (req, res) => {
-    const { id } = req.params;
-    const user = await Database.Users.findOne(id);
-    res.json(user);
-  });
-
-    app.post("/users", async (req, res) => {
-        const user = await Database.Users.create(req.body);
-        res.json(user);
+    app.delete("/api/users/:uid", (req, res) => {
+        const { uid } = req.params;
+        Database.users = Database.users.filter((u) => u._id !== uid);
+        res.sendStatus(200);
     });
-
-    app.put("/users/:id", async (req, res) => {
-        const { id } = req.params;
-        const user = await Database.Users.update(id, req.body);
-        res.json(user);
+    app.put("/api/users/:uid", (req, res) => {
+        const { uid } = req.params;
+        const userIndex = Database.users.findIndex((u) => u._id === uid);
+        Database.users[userIndex] = {
+            ...Database.users[userIndex],
+            ...req.body
+        };
+        res.sendStatus(204);
+    });
+    app.post("/api/users", (req, res) => {
+        const newUser = {
+            ...req.body,
+            _id: 'user' + new Date().getTime().toString(),
+        };
+        Database.users.push(newUser);
+        res.send(newUser);
+    });
+    app.get("/api/users", (req, res) => {
+        res.send(Database.users);
     });
 }
-
-
-
-export default UserRoutes;
