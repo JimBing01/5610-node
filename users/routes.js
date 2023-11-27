@@ -26,3 +26,4 @@ function UserRoutes(app) {
         res.send(Database.users);
     });
 }
+export default UserRoutes;
