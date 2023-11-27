@@ -14,6 +14,13 @@ function UserRoutes(app) {
         };
         res.sendStatus(204);
     });
+    
+    app.get("/api/users/:uid", (req, res) => {
+        const { uid } = req.params;
+        const user = Database.users.find((u) => u._id === uid);
+        res.send(user);
+    });
+
     app.post("/api/users", (req, res) => {
         const newUser = {
             ...req.body,
