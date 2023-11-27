@@ -11,10 +11,11 @@ import "dotenv/config";
 const app = express();
 app.use(cors());
 app.use(express.json());
-ModuleRoutes(app);
-AssignmentRoutes(app);
-CourseRoutes(app);
-Lab5(app);
-Hello(app)
+app.get('/hello', (req, res) => {res.send('Hello World!')})
+// ModuleRoutes(app);
+// AssignmentRoutes(app);
+// CourseRoutes(app);
+// Lab5(app);
+// Hello(app)
 
 app.listen(process.env.PORT || 4000)
