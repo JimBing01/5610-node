@@ -3,6 +3,9 @@ import BreakfastSandwiches from "./Sandwiches/BreakfastSandwiches.json" assert {
 import PopularItems from "./Sandwiches/PopularItems.json" assert { type: "json" };
 import SandwichesAndSubs from "./Sandwiches/SandwichesAndSubs.json" assert { type: "json" };
 import reviews from "./reviews.json" assert { type: "json" };
+import customerOrder from "./customerOrder.json" assert { type: "json" };
+import shoppingCart from "./shoppingCart.json" assert { type: "json" };
+
 
 export default {
     users,
@@ -10,5 +13,7 @@ export default {
     BreakfastSandwiches,
     PopularItems,
     SandwichesAndSubs,
+    customerOrder,
+    shoppingCart,
 };
 

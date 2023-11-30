@@ -1,5 +1,15 @@
 [
   {
+    "_id": "1",
+    "username": "smith",
+    "password": "stark123",
+    "firstName": "Tony",
+    "lastName": "Smith",
+    "email": "tony@stark.com",
+    "dob": "1970-05-29",
+    "role": "CUSTOMER"
+  },
+  {
     "_id": "121",
     "username": "iron_man",
     "password": "stark123",
