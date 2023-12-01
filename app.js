@@ -4,6 +4,7 @@ import cors from "cors";
 import "dotenv/config";
 import ShoppingRoutes from "./shoppingCart/routes.js";
 import OrderRoutes from "./order/routes.js";
+import HomeRoutes from "./home/routes.js";
 
 
 const app = express();
@@ -12,5 +13,6 @@ app.use(express.json());
 UserRoutes(app);
 ShoppingRoutes(app);
 OrderRoutes(app);
+HomeRoutes(app);
 
 app.listen(process.env.PORT || 4000)
