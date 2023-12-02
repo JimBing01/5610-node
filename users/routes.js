@@ -1,4 +1,11 @@
 import Database from "../Database/index.js";
+// import fs from 'fs';
+// import path from 'path';
+
+// function writeToJSONFile(users) {
+//     fs.writeFileSync(path.resolve(__dirname, '../Database/users.json'), JSON.stringify(users, null, 2));
+// }
+
 function UserRoutes(app) {
     app.delete("/api/users/:uid", (req, res) => {
         const { uid } = req.params;
@@ -32,5 +39,15 @@ function UserRoutes(app) {
     app.get("/api/users", (req, res) => {
         res.send(Database.users);
     });
+
+    // app.post("/api/users", (req, res) => {
+    //     const newUser = { ...req.body, _id: 'user' + new Date().getTime().toString() };
+    //     Database.users.push(newUser);
+    //     writeToJSONFile(Database.users); // Write to file
+    //     res.send(newUser);
+    // });
+
 }
+
+
 export default UserRoutes;
