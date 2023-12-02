@@ -1,0 +1,91 @@
+[
+    {
+      "userId": "120",
+      "street": "123 Maple Street",
+      "city": "Anytown",
+      "state": "NY",
+      "zipCode": "12345",
+      "country": "USA"
+    },
+    {
+      "userId": "121",
+      "street": "456 Oak Avenue",
+      "city": "Metropolis",
+      "state": "CA",
+      "zipCode": "67890",
+      "country": "USA"
+    },
+    {
+      "userId": "122",
+      "street": "789 Birch Lane",
+      "city": "Gotham",
+      "state": "NJ",
+      "zipCode": "10112",
+      "country": "USA"
+    },
+    {
+        "userId": "123",
+        "street": "909 Elm Street",
+        "city": "Smallville",
+        "state": "KS",
+        "zipCode": "10112",
+        "country": "USA"
+    },
+    {
+        "userId": "124",
+        "street": "1011 Pine Street",
+        "city": "Central City",
+        "state": "MO",
+        "zipCode": "10112",
+        "country": "USA"
+    },
+    {
+        "userId": "125",
+        "street": "1213 Cedar Street",
+        "city": "Star City",
+        "state": "CA",
+        "zipCode": "10112",
+        "country": "USA"
+    },
+    {
+        "userId": "126",
+        "street": "1415 Spruce Street",
+        "city": "Coast City",
+        "state": "CA",
+        "zipCode": "10112",
+        "country": "USA"
+    },
+    {
+        "userId": "127",
+        "street": "1617 Walnut Street",
+        "city": "Atlantis",
+        "state": "CA",
+        "zipCode": "10112",
+        "country": "USA"
+    },
+    {
+        "userId": "128",
+        "street": "1819 Ash Street",
+        "city": "Emerald City",
+        "state": "CA",
+        "zipCode": "10112",
+        "country": "USA"
+    },
+    {
+        "userId": "129",
+        "street": "2021 Elm Street",
+        "city": "Gotham",
+        "state": "NJ",
+        "zipCode": "10112",
+        "country": "USA"
+    },
+    {
+        "userId": "130",
+        "street": "2223 Pine Street",
+        "city": "Metropolis",
+        "state": "CA",
+        "zipCode": "10112",
+        "country": "USA"
+    }
+  ]
+  

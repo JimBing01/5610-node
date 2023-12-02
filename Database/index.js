@@ -6,6 +6,7 @@ import reviews from "./reviews.json" assert { type: "json" };
 import customerOrder from "./customerOrder.json" assert { type: "json" };
 import shoppingCart from "./shoppingCart.json" assert { type: "json" };
 import AllSandwiches from "./Sandwiches/AllSandwiches.json" assert { type: "json" };
+import addresses from "./Addresses.json" assert { type: "json" };
 
 
 export default {
@@ -16,6 +17,7 @@ export default {
     SandwichesAndSubs,
     customerOrder,
     shoppingCart,
-    AllSandwiches
+    AllSandwiches,
+    addresses
 };
 

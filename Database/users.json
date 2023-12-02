@@ -1,6 +1,6 @@
 [
   {
-    "_id": "1",
+    "_id": "120",
     "username": "smith",
     "password": "stark123",
     "firstName": "Tony",
@@ -71,27 +71,27 @@
   },
 
   {
-    "_id": "157",
+    "_id": "127",
     "username": "ring_bearer",
     "password": "shire123",
     "firstName": "Frodo",
     "lastName": "Baggins",
     "email": "frodo@shire.com",
     "dob": "1368-09-22",
-    "role": "MERCHANT"
+    "role": "CUSTOMER"
   },
   {
-    "_id": "158",
+    "_id": "128",
     "username": "strider",
     "password": "aragorn123",
     "firstName": "Aragorn",
     "lastName": "Elessar",
     "email": "aragorn@gondor.com",
     "dob": "2931-03-01",
-    "role": "MERCHANT"
+    "role": "CUSTOMER"
   },
   {
-    "_id": "159",
+    "_id": "129",
     "username": "elf_archer",
     "password": "legolas123",
     "firstName": "Legolas",
@@ -101,7 +101,7 @@
     "role": "MERCHANT"
   },
   {
-    "_id": "159",
+    "_id": "130",
     "username": "tom_brady",
     "password": "tom123",
     "firstName": "Tom",

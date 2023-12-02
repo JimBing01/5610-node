@@ -6,6 +6,7 @@ import ShoppingRoutes from "./shoppingCart/routes.js";
 import OrderRoutes from "./order/routes.js";
 import HomeRoutes from "./home/routes.js";
 import SearchBarRoutes from "./SearchBar/routes.js";
+import AddressRoutes from './addresses/routes.js';
 
 
 const app = express();
@@ -16,6 +17,8 @@ ShoppingRoutes(app);
 OrderRoutes(app);
 HomeRoutes(app);
 SearchBarRoutes(app);
+AddressRoutes(app);
+
 
 app.listen(process.env.PORT || 4000)
 // app.listen(4000, () => {
