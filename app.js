@@ -7,6 +7,7 @@ import OrderRoutes from "./order/routes.js";
 import HomeRoutes from "./home/routes.js";
 import SearchBarRoutes from "./SearchBar/routes.js";
 import AddressRoutes from './addresses/routes.js';
+import PaymentRoutes from './payments/routes.js';
 
 
 const app = express();
@@ -18,6 +19,7 @@ OrderRoutes(app);
 HomeRoutes(app);
 SearchBarRoutes(app);
 AddressRoutes(app);
+PaymentRoutes(app);
 
 
 app.listen(process.env.PORT || 4000)

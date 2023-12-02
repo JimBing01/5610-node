@@ -1,0 +1,90 @@
+[
+    {
+        "user_id": "120",
+        "type": "Visa",
+        "cardNumber": "4532 8745 7845 6735",
+        "expirationDate": "12/25",
+        "securityCode": "123",
+        "isDefault": true
+    },
+    {
+        "user_id": "121",
+        "type": "MasterCard",
+        "cardNumber": "5500 0000 0000 0004",
+        "expirationDate": "11/24",
+        "securityCode": "456",
+        "isDefault": true
+    },
+    {
+        "user_id": "122",
+        "type": "American Express",
+        "cardNumber": "3782 8224 6310 005",
+        "expirationDate": "03/26",
+        "securityCode": "789",
+        "isDefault": true
+    },
+    {
+        "user_id": "123",
+        "type": "Discover",
+        "cardNumber": "6011 0000 0000 0004",
+        "expirationDate": "09/25",
+        "securityCode": "321",
+        "isDefault": true
+    },
+    {
+        "user_id": "124",
+        "type": "Visa",
+        "cardNumber": "4111 1111 1111 1111",
+        "expirationDate": "12/25",
+        "securityCode": "123",
+        "isDefault": true
+    },
+    {
+        "user_id": "125",
+        "type": "MasterCard",
+        "cardNumber": "5500 0000 0000 0004",
+        "expirationDate": "11/24",
+        "securityCode": "456",
+        "isDefault": true
+    },
+    {
+        "user_id": "126",
+        "type": "American Express",
+        "cardNumber": "3782 8224 6310 005",
+        "expirationDate": "03/26",
+        "securityCode": "789",
+        "isDefault": true
+    },
+    {
+        "user_id": "127",
+        "type": "Discover",
+        "cardNumber": "6011 0000 0000 0004",
+        "expirationDate": "09/25",
+        "securityCode": "321",
+        "isDefault": true
+    },
+    {
+        "user_id": "128",
+        "type": "Visa",
+        "cardNumber": "4111 1111 1111 1111",
+        "expirationDate": "12/25",
+        "securityCode": "123",
+        "isDefault": true
+    },
+    {
+        "user_id": "129",
+        "type": "MasterCard",
+        "cardNumber": "5500 0000 0000 0004",
+        "expirationDate": "11/24",
+        "securityCode": "456",
+        "isDefault": true
+    },
+    {
+        "user_id": "130",
+        "type": "American Express",
+        "cardNumber": "3782 8224 6310 005",
+        "expirationDate": "03/26",
+        "securityCode": "789",
+        "isDefault": true
+    }
+]
