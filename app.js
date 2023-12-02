@@ -5,6 +5,7 @@ import "dotenv/config";
 import ShoppingRoutes from "./shoppingCart/routes.js";
 import OrderRoutes from "./order/routes.js";
 import HomeRoutes from "./home/routes.js";
+import SearchBarRoutes from "./SearchBar/routes.js";
 
 
 const app = express();
@@ -14,6 +15,7 @@ UserRoutes(app);
 ShoppingRoutes(app);
 OrderRoutes(app);
 HomeRoutes(app);
+SearchBarRoutes(app);
 
 app.listen(process.env.PORT || 4000)
 // app.listen(4000, () => {
