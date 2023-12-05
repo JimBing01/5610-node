@@ -4,10 +4,10 @@ function HomeRoutes(app) {
 
     app.post("/home/:userId/sandwichModal", (req, res) => {
         const { userId } = req.params;
-        db.shoppingCart.push(req.body);
+        const newCart = {...req.body,quantity:1}
+        db.shoppingCart.push(newCart);
         res.send(db.shoppingCart.filter((m) => m.userId === userId));
     });
-
 
 }
 export default HomeRoutes;
