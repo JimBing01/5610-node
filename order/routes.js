@@ -24,5 +24,28 @@ function OrderRoutes(app) {
 
         res.sendStatus(204);
     });
+
+    app.get("/restaurant/pastOrders", (req, res) => {
+
+        const pastOrders = db.customerOrder;
+
+        res.send(pastOrders);
+
+    });
+
+    app.put("/restaurant/pastOrders", (req, res) => {
+        const pastOrder = req.body;
+        const orderIndex = db.customerOrder.findIndex(
+            (m) => m._id === pastOrder._id);
+
+        db.customerOrder[orderIndex] = {
+            ...db.customerOrder[orderIndex],
+            ...req.body
+        };
+
+        res.sendStatus(204);
+    });
+
+
 }
 export default OrderRoutes;

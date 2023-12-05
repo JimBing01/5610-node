@@ -34,7 +34,7 @@
         "star5": false,
         "comment": "hello2"}]
     ],
-    "status": "completed",
+    "status": "Notify restaurant",
     "image": ""
   },
 
@@ -75,7 +75,7 @@
         "comment": "hello23"
       }]
     ],
-    "status": "completed",
+    "status": "Notify restaurant",
 
     "image": ""
   },
