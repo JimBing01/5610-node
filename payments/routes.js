@@ -2,41 +2,68 @@ import Database from "../Database/index.js";
 
 function PaymentRoutes(app) {
     app.get("/api/payments", (req, res) => {
-        res.send(Database.payments);
+        res.json(Database.payments);
     });
 
-    app.get("/api/users/:uid/payments", (req, res) => {
-        const { uid } = req.params;
-        const payments = Database.payments
-            .filter((p) => p.user_id === uid);
-        res.send(payments);
+    app.get("/api/users/:user_id/payments", (req, res) => {
+        const { user_id } = req.params;
+        const userPayments = Database.payments.filter(payment => payment.user_id === user_id);
+        
+        if (userPayments.length === 0) {
+            return res.status(404).send('No payments found for this user.');
+        }
+        res.json(userPayments);
     });
+
+    app.get("/api/payments/:pid", (req, res) => {
+        const { pid } = req.params;
+        const payment = Database.payments.find(payment => payment.pid === pid);
+
+        if (!payment) {
+            return res.status(404).send('Payment not found.');
+        }
+        res.json(payment);
+    }
+    );
 
     app.delete("/api/payments/:pid", (req, res) => {
         const { pid } = req.params;
-        Database.payments = Database.payments.filter((p) => p._id !== pid);
-        res.sendStatus(200);
+        const paymentExists = Database.payments.some(payment => payment.pid === pid);
+
+        if (!paymentExists) {
+            return res.status(404).send('Payment not found.');
+        }
+
+        Database.payments = Database.payments.filter(payment => payment.pid !== pid);
+        res.status(200).send('Payment deleted successfully.');
     });
 
     app.put("/api/payments/:pid", (req, res) => {
         const { pid } = req.params;
-        const paymentIndex = Database.payments.findIndex((p) => p._id === pid);
+        const paymentIndex = Database.payments.findIndex(payment => payment.pid === pid);
+
+        if (paymentIndex === -1) {
+            return res.status(404).send('Payment not found.');
+        }
+
         Database.payments[paymentIndex] = {
             ...Database.payments[paymentIndex],
             ...req.body
         };
-        res.sendStatus(204);
+        res.status(204).send();
     });
 
-    app.post("/api/users/:uid/payments", (req, res) => {
-        const { uid } = req.params;
+    app.post("/api/users/:user_id/payments", (req, res) => {
+        const { user_id } = req.params;
         const newPayment = {
             ...req.body,
-            user: uid,
-            _id: 'payment' + new Date().getTime().toString(),
+            user_id,
+            pid: 'payment' + new Date().getTime().toString(),
         };
+
         Database.payments.push(newPayment);
-        res.send(newPayment);
+        res.status(201).json(newPayment);
     });
 }
+
 export default PaymentRoutes;
