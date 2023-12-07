@@ -8,11 +8,24 @@ import HomeRoutes from "./home/routes.js";
 import SearchBarRoutes from "./SearchBar/routes.js";
 import AddressRoutes from './addresses/routes.js';
 import PaymentRoutes from './payments/routes.js';
+import session from 'express-session';
+import connectDB from './db.js';
 
 
 const app = express();
+connectDB();
+
 app.use(cors());
 app.use(express.json());
+
+// Session configuration
+app.use(session({
+                    secret: 'your-secret-key', // Replace with your own secret key
+                    resave: false,
+                    saveUninitialized: true,
+                    cookie: { secure: false } // Set to true if using https
+                }));
+
 UserRoutes(app);
 ShoppingRoutes(app);
 OrderRoutes(app);
