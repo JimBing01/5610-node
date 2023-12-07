@@ -27,7 +27,7 @@
     "lastName": "Wayne",
     "email": "bruce@wayne.com",
     "dob": "1972-02-19",
-    "role": "CUSTOMER"
+    "role": "user"
   },
   {
     "_id": "123",

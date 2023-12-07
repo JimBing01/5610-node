@@ -37,7 +37,6 @@ function ShoppingRoutes(app) {
 
     app.put("/user/:userId/shopping-cart/:orderId", (req, res) => {
         const { orderId } = req.params;
-        console.log(req.body)
         const cartIndex = db.shoppingCart.findIndex(
             (m) => m._id === orderId);
         db.shoppingCart[cartIndex] = {

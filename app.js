@@ -11,8 +11,10 @@ import PaymentRoutes from './payments/routes.js';
 
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
+
 UserRoutes(app);
 ShoppingRoutes(app);
 OrderRoutes(app);
