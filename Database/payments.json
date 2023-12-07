@@ -1,4 +1,12 @@
-[
+[{
+    "user_id": "1",
+    "pid": "100",
+    "type": "Visa",
+    "cardNumber": "4532 8745 7845 6735",
+    "expirationDate": "12/25",
+    "securityCode": "123",
+    "isDefault": true
+},
     {
         "user_id": "120",
         "pid": "1200",
