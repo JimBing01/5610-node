@@ -1,4 +1,12 @@
-[
+[{
+    "userId": "1",
+    "addressId": "100",
+    "street": "388 McKinley Ave",
+    "city": "Edison",
+    "state": "CA",
+    "zipCode": "12345",
+    "country": "USA"
+  },
     {
       "userId": "120",
       "addressId": "1",
