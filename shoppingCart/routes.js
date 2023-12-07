@@ -46,5 +46,12 @@ function ShoppingRoutes(app) {
 
         res.sendStatus(200);
     });
+
+    app.get("/user/:userId/shopping-cart/addresses", (req, res) => {
+        const { userId } = req.params;
+        const addresses = db.addresses.filter((m) => m.userId === userId);
+        res.send(addresses);
+
+    });
 }
 export default ShoppingRoutes;
