@@ -2,10 +2,10 @@
   {
     "_id": "1",
     "username": "smith",
-    "password": "stark123",
+    "password": "smith123",
     "firstName": "Tony",
     "lastName": "Smith",
-    "email": "tony@stark.com",
+    "email": "tony@smith.com",
     "dob": "1970-05-29",
     "role": "CUSTOMER",
     "phone": "8578881234"
@@ -16,7 +16,7 @@
     "password": "stark123",
     "firstName": "Tony",
     "lastName": "Stark",
-    "email": "tony@stark.com",
+    "email": "sydney@stark.com",
     "dob": "2001-05-29",
     "role": "CUSTOMER",
     "phone": "8579990000"
