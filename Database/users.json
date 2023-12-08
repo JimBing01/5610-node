@@ -2,10 +2,10 @@
   {
     "_id": "1",
     "username": "smith",
-    "password": "stark123",
-    "firstName": "Tony",
+    "password": "smith123",
+    "firstName": "Sam",
     "lastName": "Smith",
-    "email": "tony@stark.com",
+    "email": "sam@smith.com",
     "dob": "1970-05-29",
     "role": "CUSTOMER"
   },
