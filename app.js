@@ -10,6 +10,7 @@ import AddressRoutes from './addresses/routes.js';
 import PaymentRoutes from './payments/routes.js';
 import SandwichRoutes from './sandwiches/routes.js';
 import SandwichReviews from './sandwiches/reviews/routes.js';
+import "dotenv/config";
 
 
 const app = express();
