@@ -8,6 +8,8 @@ import HomeRoutes from "./home/routes.js";
 import SearchBarRoutes from "./SearchBar/routes.js";
 import AddressRoutes from './addresses/routes.js';
 import PaymentRoutes from './payments/routes.js';
+import SandwichRoutes from './sandwiches/routes.js';
+import SandwichReviews from './sandwiches/reviews/routes.js';
 
 
 const app = express();
@@ -15,6 +17,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+SandwichReviews(app);
+SandwichRoutes(app) 
 UserRoutes(app);
 ShoppingRoutes(app);
 OrderRoutes(app);
