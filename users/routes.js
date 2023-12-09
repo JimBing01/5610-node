@@ -1,10 +1,4 @@
 import Database from "../Database/index.js";
-// import fs from 'fs';
-// import path from 'path';
-
-// function writeToJSONFile(users) {
-//     fs.writeFileSync(path.resolve(__dirname, '../Database/users.json'), JSON.stringify(users, null, 2));
-// }
 
 function UserRoutes(app) {
     app.delete("/api/users/:uid", (req, res) => {
@@ -40,12 +34,17 @@ function UserRoutes(app) {
         res.send(Database.users);
     });
 
-    // app.post("/api/users", (req, res) => {
-    //     const newUser = { ...req.body, _id: 'user' + new Date().getTime().toString() };
-    //     Database.users.push(newUser);
-    //     writeToJSONFile(Database.users); // Write to file
-    //     res.send(newUser);
-    // });
+
+    //yiming
+    app.post("/api/users/signout", (req, res) => {
+        // If you have session management, you would destroy the session here.
+        // Since it's not shown in your current code, we'll just send a confirmation response.
+
+        // If you're using something like express-session, it might look like this:
+        // req.session.destroy();
+
+        res.status(200).send({ message: "Sign-out successful" });
+    });
 
 }
 
