@@ -6,6 +6,7 @@ function UserRoutes(app) {
         Database.users = Database.users.filter((u) => u._id !== uid);
         res.sendStatus(200);
     });
+
     app.put("/api/users/:uid", (req, res) => {
         const { uid } = req.params;
         const userIndex = Database.users.findIndex((u) => u._id === uid);
@@ -30,6 +31,7 @@ function UserRoutes(app) {
         Database.users.push(newUser);
         res.send(newUser);
     });
+
     app.get("/api/users", (req, res) => {
         res.send(Database.users);
     });
