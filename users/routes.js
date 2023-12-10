@@ -16,12 +16,31 @@ function UserRoutes(app) {
         };
         res.sendStatus(204);
     });
-    
+
+    //yiming
+    app.get("/api/users", (req, res) => {
+        if (req.query.email) {
+            const userExists = Database.users.some(u => u.email === req.query.email);
+            res.json({ exists: userExists });
+        } else {
+            res.json(Database.users);
+        }
+    });
+
     app.get("/api/users/:uid", (req, res) => {
         const { uid } = req.params;
         const user = Database.users.find((u) => u._id === uid);
         res.send(user);
     });
+
+
+    // app.get("/api/users", (req, res) => {
+    //     console.log("Checking if user exists with email:", req.query.email);
+    //     const userExists = Database.users.some(u => u.email === req.query.email);
+    //     console.log("User exists:", userExists);
+    //     res.send(userExists ? [req.query.email] : []);
+    // });
+
 
     app.post("/api/users", (req, res) => {
         const newUser = {
@@ -32,20 +51,66 @@ function UserRoutes(app) {
         res.send(newUser);
     });
 
-    app.get("/api/users", (req, res) => {
-        res.send(Database.users);
+    // app.get("/api/users", (req, res) => {
+    //     res.send(Database.users);
+    // });
+
+
+
+    // app.post('/api/users/signin', (req, res) => {
+    //     // Replace this with your actual user authentication logic
+    //     const user = Database.users.find(u => u.email === req.body.email && u.password === req.body.password);
+    //     if (user) {
+    //         req.session.userId = user._id; // Store the user ID in the session
+    //         res.json(user);
+    //     } else {
+    //         res.status(401).json({ message: 'Invalid credentials' });
+    //     }
+    // });
+
+    app.post('/api/users/signin', (req, res) => {
+        console.log("Attempting to sign in user:", req.body.email);
+        const user = Database.users.find(u =>
+                                             u.email.toLowerCase() === req.body.email.toLowerCase() &&
+                                             u.password === req.body.password
+        );
+        if (user) {
+            console.log("Sign in successful for user:", req.body.email);
+            req.session.userId = user._id; // Store the user ID in the session
+            res.json(user);
+        } else {
+            console.log("Sign in failed for user:", req.body.email);
+            res.status(401).json({ message: 'Invalid credentials' });
+        }
     });
 
 
-    //yiming
-    app.post("/api/users/signout", (req, res) => {
-        // If you have session management, you would destroy the session here.
-        // Since it's not shown in your current code, we'll just send a confirmation response.
+    app.post('/api/users/signout', (req, res) => {
+        req.session.destroy(); // Destroy the session
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        res.json({ message: 'You have been signed out' });
+    });
 
-        // If you're using something like express-session, it might look like this:
-        // req.session.destroy();
+    app.post('/api/users/signup', (req, res) => {
+        // Destructure and validate required fields
+        const { email, password, firstName, lastName, username, dob, phone, role } = req.body;
 
-        res.status(200).send({ message: "Sign-out successful" });
+        // Check if the user already exists
+        const existingUser = Database.users.find(u => u.email === email);
+        if (existingUser) {
+            return res.status(409).send({ message: "Email already exists." });
+        }
+
+        // Create and store the new user
+        const newUser = {
+            _id: `user_${new Date().getTime()}`,
+            email, password, // In production, hash the password before storing it
+            firstName, lastName, username, dob, phone, role
+        };
+        Database.users.push(newUser);
+
+        // Respond with the newly created user
+        res.status(201).send(newUser);
     });
 
 }

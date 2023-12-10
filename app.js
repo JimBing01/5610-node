@@ -1,4 +1,5 @@
 import express from 'express';
+import session from 'express-session';
 import UserRoutes from "./users/routes.js";
 import cors from "cors";
 import "dotenv/config";
@@ -16,7 +17,24 @@ import "dotenv/config";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+                 origin: 'http://localhost:3000', // This should match the URL of your React app
+                 credentials: true, // This allows the server to send cookies to the client
+             }));
+
+
+// Set up the session middleware
+app.use(session({
+                    secret: process.env.SESSION_SECRET || 'a_super_secret_string', // Use an environment variable for the secret in production
+                    resave: false,
+                    saveUninitialized: true,
+                    cookie: {
+                        httpOnly: true,
+                        secure: process.env.NODE_ENV === 'production', // Set to true if using https
+                        sameSite: 'strict',
+                    }
+                }));
+
 app.use(express.json());
 
 PublicUserRoutes(app);
