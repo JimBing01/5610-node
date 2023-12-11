@@ -18,7 +18,12 @@ import "dotenv/config";
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+                 origin: 'https://cosmic-horse-b86e88.netlify.app', // Replace with your actual Netlify domain
+                 credentials: true,
+             }));
+
 
 
 // Set up the session middleware
