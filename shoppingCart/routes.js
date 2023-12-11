@@ -16,7 +16,7 @@ function ShoppingRoutes(app) {
             ...req.body,"userName": user.username,
         };
         db.customerOrder.push(pastOrder);
-
+        db.shoppingCart = db.shoppingCart.filter((m)=>m.userId !== userId)
         res.send(db.customerOrder.filter((m) => m.userId === userId));
 
     });

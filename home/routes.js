@@ -23,7 +23,6 @@ function HomeRoutes(app) {
         } else if(sandwichKind == 'subs') {
             sandwiches = db.SandwichesAndSubs;
         }
-
         res.send(sandwiches);
 
     });
