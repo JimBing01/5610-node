@@ -11,6 +11,7 @@ import PaymentRoutes from './payments/routes.js';
 import SandwichRoutes from './sandwiches/routes.js';
 import SandwichReviews from './sandwiches/reviews/routes.js';
 import PublicUserRoutes from './users/publicUser/routes.js';
+import FavoritesRoutes from './favorites/routes.js';
 import "dotenv/config";
 
 
@@ -29,6 +30,7 @@ HomeRoutes(app);
 SearchBarRoutes(app);
 AddressRoutes(app);
 PaymentRoutes(app);
+FavoritesRoutes(app);
 
 
 

@@ -1,0 +1,23 @@
+[
+    {
+      "favoriteId": "1",
+      "userId": "1",
+      "name": "Sausage, Egg & Cheese",
+      "description": "",
+      "image": "/images/sandwiches/Phi_Gamma_Melta.jpg"
+    },
+    {
+      "favoriteId": "2",
+      "userId": "1",
+      "name": "Double Egg and Cheese",
+      "description": "",
+      "image": "/images/sandwiches/Phi_Gamma_Melta.jpg"
+    },
+    {
+      "favoriteId": "3",
+      "userId": "1",
+      "name": "Ham, Egg, and Cheese",
+      "description": "",
+      "image": "/images/sandwiches/Phi_Gamma_Melta.jpg"
+    }
+  ]
