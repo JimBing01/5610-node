@@ -18,10 +18,7 @@ import "dotenv/config";
 
 const app = express();
 
-app.use(cors({
-                 origin: 'http://localhost:3000', // This should match the URL of your React app
-                 credentials: true, // This allows the server to send cookies to the client
-             }));
+app.use(cors());
 
 
 // Set up the session middleware
