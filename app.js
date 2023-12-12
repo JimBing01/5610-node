@@ -1,8 +1,8 @@
 import express from 'express';
 import session from 'express-session';
-import UserRoutes from "./users/routes.js";
 import cors from "cors";
 import "dotenv/config";
+import UserRoutes from "./users/routes.js";
 import ShoppingRoutes from "./shoppingCart/routes.js";
 import OrderRoutes from "./order/routes.js";
 import HomeRoutes from "./home/routes.js";
@@ -13,15 +13,14 @@ import SandwichRoutes from './sandwiches/routes.js';
 import SandwichReviews from './sandwiches/reviews/routes.js';
 import PublicUserRoutes from './users/publicUser/routes.js';
 import FavoritesRoutes from './favorites/routes.js';
-import "dotenv/config";
 
 
 const app = express();
 
-//app.use(cors());
+// app.use(cors());
 app.use(cors({
-                 origin: process.env.FRONTEND_URL, // Replace with your actual Netlify domain
                  credentials: true,
+                 origin: process.env.FRONTEND_URL // Replace with your actual Netlify domain
              }));
 
 
