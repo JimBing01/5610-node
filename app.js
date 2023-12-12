@@ -13,6 +13,8 @@ import SandwichRoutes from './sandwiches/routes.js';
 import SandwichReviews from './sandwiches/reviews/routes.js';
 import PublicUserRoutes from './users/publicUser/routes.js';
 import FavoritesRoutes from './favorites/routes.js';
+import mongoose from 'mongoose';
+mongoose.connect("mongodb://127.0.0.1:27017/website");
 
 
 const app = express();
