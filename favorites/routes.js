@@ -1,45 +1,60 @@
-import Database from "../Database/index.js";
+import mongoose from "mongoose";
+import Favorites from "./model.js"; 
+import { v4 as uuidv4 } from 'uuid';
 
 function FavoritesRoutes(app) {
-    app.get("/user/:userId/favorites", (req, res) => {
-        console.log('Database:', Database);
-        console.log('Favorites:', Database.favorites);
-    
-        // Check if Database.favorites is defined
-        if (!Database.favorites) {
-            return res.status(500).send('Database not initialized');
+    // Get all favorites for a user
+    app.get("/user/:userId/favorites", async (req, res) => {
+        try {
+            const { userId } = req.params;
+            const favorites = await Favorites.find({ userId: userId });
+            res.send(favorites);
+        } catch (error) {
+            res.status(500).send('Error fetching favorites');
         }
-    
-        const { userId } = req.params;
-        const favorites = Database.favorites.filter((m) => m.userId === userId);
-        res.send(favorites);
     });
     
-    app.post("/user/:userId/favorites", (req, res) => {
+    // Add a new favorite
+    app.post("/user/:userId/favorites", async (req, res) => {
         const { userId } = req.params;
-        const newFavorite = {
-            ...req.body,
-            userId,
-        };
-        Database.favorites.push(newFavorite);
-        res.send(newFavorite);
-    }
-    );
-    app.delete("/user/:userId/favorites/:favoriteId", (req, res) => {
-        const { favoriteId } = req.params;
-        Database.favorites = Database.favorites.filter((favorite) => favorite.favoriteId !== favoriteId);
-        res.sendStatus(200);
-    }
-    );
-    app.put("/user/:userId/favorites/:favoriteId", (req, res) => {
-        const { favoriteId } = req.params;
-        const favoriteIndex = Database.favorites.findIndex((m) => m.favoriteId === favoriteId);
-        Database.favorites[favoriteIndex] = {
-            ...Database.favorites[favoriteIndex],
-            ...req.body
-        };
-        res.sendStatus(204);
-    }
-    );
+        try {
+            // Generate a unique favoriteId using a MongoDB ObjectId
+            const favoriteId = new mongoose.Types.ObjectId().toString();
+
+            const newFavorite = new Favorites({
+                ...req.body,
+                userId,
+                favoriteId, // Assign the generated favoriteId
+                _id: new mongoose.Types.ObjectId() // MongoDB's ObjectId for the document's primary key (_id)
+            });
+            await newFavorite.save();
+            res.status(201).send(newFavorite);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+    
+    // Delete a favorite
+    app.delete("/user/:userId/favorites/:favoriteId", async (req, res) => {
+        try {
+            const { favoriteId } = req.params;
+            await Favorites.deleteOne({ favoriteId: favoriteId });
+            res.sendStatus(200);
+        } catch (error) {
+            res.status(500).send('Error deleting favorite');
+        }
+    });
+
+    // Update a favorite
+    app.put("/user/:userId/favorites/:favoriteId", async (req, res) => {
+        try {
+            const { favoriteId } = req.params;
+            await Favorites.updateOne({ favoriteId: favoriteId }, { $set: req.body });
+            res.sendStatus(204);
+        } catch (error) {
+            res.status(500).send('Error updating favorite');
+        }
+    });
 }
+
 export default FavoritesRoutes;
