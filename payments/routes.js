@@ -8,10 +8,7 @@ function PaymentRoutes(app) {
     app.get("/api/users/:user_id/payments", (req, res) => {
         const { user_id } = req.params;
         const userPayments = Database.payments.filter(payment => payment.user_id === user_id);
-        
-        if (userPayments.length === 0) {
-            return res.status(404).send('No payments found for this user.');
-        }
+
         res.json(userPayments);
     });
 
