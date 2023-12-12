@@ -91,7 +91,27 @@ function UserRoutes(app) {
         res.json({ message: 'You have been signed out' });
     });
 
-     
+    app.post('/api/users/signup', (req, res) => {
+        // Destructure and validate required fields
+        const { email, password, firstName, lastName, username, dob, phone, role } = req.body;
+
+        // Check if the user already exists
+        const existingUser = Database.users.find(u => u.email === email);
+        if (existingUser) {
+            return res.status(409).send({ message: "Email already exists." });
+        }
+
+        // Create and store the new user
+        const newUser = {
+            _id: `user_${new Date().getTime()}`,
+            email, password, // In production, hash the password before storing it
+            firstName, lastName, username, dob, phone, role
+        };
+        Database.users.push(newUser);
+
+        // Respond with the newly created user
+        res.status(201).send(newUser);
+    });
 
 }
 
