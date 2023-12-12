@@ -1,59 +1,118 @@
-import Database from "../Database/index.js";
+// import Database from "../Database/index.js";
+import mongoose from "mongoose";
+import Address from "./model.js";
 
 function AddressRoutes(app) {
 
-    const getUserAddresses = (uid) => Database.addresses.filter(a => a.userId === uid);
-
-    app.get("/api/addresses", (req, res) => {
-        res.send(Database.addresses);
-    });
-
-    app.get("/api/users/:uid/addresses", (req, res) => {
-        const { uid } = req.params;
-        res.send(getUserAddresses(uid));
-    });
-
-    app.get("/api/users/:uid/addresses/:aid", (req, res) => {
-        const { uid, aid } = req.params;
-        const userAddresses = getUserAddresses(uid);
-        const address = userAddresses.find(a => a.addressId === aid);
-        res.send(address);
-    }
-    
-        );
-
-    app.delete("/api/addresses/:aid", (req, res) => {
-        const { aid } = req.params;
-        Database.addresses = Database.addresses.filter(a => a.addressId !== aid);
-        res.sendStatus(200);
-    });
-
-    app.put("/api/addresses/:aid", (req, res) => {
-        const { aid } = req.params;
-        const addressIndex = Database.addresses.findIndex(a => a.addressId === aid);
-        if (addressIndex !== -1) {
-            Database.addresses[addressIndex] = { ...Database.addresses[addressIndex], ...req.body };
-            res.sendStatus(204);
-        } else {
-            res.sendStatus(404); // Address not found
+    // Get all addresses
+    app.get("/api/addresses", async (req, res) => {
+        try {
+            const addresses = await Address.find();
+            res.send(addresses);
+        } catch (error) {
+            res.status(500).send(error);
         }
     });
 
-    app.get("/api/addresses/:aid", (req, res) => {
-        const { aid } = req.params;
-        const address = Database.addresses.find(a => a.addressId === aid);
-        res.send(address);
+    // Get all addresses for a user
+    app.get("/api/users/:uid/addresses", async (req, res) => {
+        const { uid } = req.params; // uid is received as a string here
+        try {
+            const userAddresses = await Address.find({ userId: uid });
+            console.log("User Addresses:", userAddresses); 
+            res.send(userAddresses);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+        console.log("Requested UID:", uid, "Type:", typeof uid);
+
+    });
+    
+
+    // Get a specific address for a user
+    app.get("/api/users/:uid/addresses/:aid", async (req, res) => {
+        const { uid, aid } = req.params;
+        try {
+            const address = await Address.findOne({ userId: uid, addressId: aid });
+            if (address) {
+                res.send(address);
+            } else {
+                res.sendStatus(404);
+            }
+        } catch (error) {
+            res.status(500).send(error);
+        }
     });
 
-    app.post("/api/users/:uid/addresses", (req, res) => {
+    // Delete an address
+    app.delete("/api/addresses/:aid", async (req, res) => {
+        const { aid } = req.params;
+        try {
+            const result = await Address.deleteOne({ addressId: aid });
+            if (result.deletedCount > 0) {
+                res.sendStatus(200);
+            } else {
+                res.sendStatus(404);
+            }
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+
+    // Update an address
+    app.put("/api/addresses/:aid", async (req, res) => {
+        const { aid } = req.params;
+        const updateData = req.body;
+
+        try {
+            const result = await Address.updateOne({ addressId: aid }, updateData);
+
+            if (result.nModified > 0) {
+                res.status(200).send({ message: "Address updated successfully" });
+            } else if (result.matchedCount > 0) {
+                res.status(200).send({ message: "No changes detected or address already up-to-date" });
+            } else {
+                res.status(404).send({ message: "Address not found" });
+            }
+        } catch (error) {
+            res.status(500).send({ message: "Error updating address", error: error });
+        }
+    });
+
+    // Get a specific address
+    app.get("/api/addresses/:aid", async (req, res) => {
+        const { aid } = req.params;
+        try {
+            const address = await Address.findOne({ addressId: aid });
+            if (address) {
+                res.send(address);
+            } else {
+                res.sendStatus(404);
+            }
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+
+    // Create a new address for a user
+    app.post("/api/users/:uid/addresses", async (req, res) => {
         const { uid } = req.params;
-        const newAddress = {
-            ...req.body,
-            userId: uid,
-            _id: `address${new Date().getTime()}`,
-        };
-        Database.addresses.push(newAddress);
-        res.status(201).send(newAddress); // 201 for resource creation
+        try {
+            // Generate a unique addressId, for example using a timestamp or a MongoDB ObjectId
+            const addressId = new mongoose.Types.ObjectId().toString();
+    
+            const newAddress = new Address({
+                ...req.body,
+                userId: uid,
+                addressId: addressId, // Assign the generated addressId
+                _id: new mongoose.Types.ObjectId() // MongoDB's ObjectId for the document's primary key (_id)
+            });
+    
+            await newAddress.save();
+            res.status(201).send(newAddress);
+        } catch (error) {
+            res.status(500).send(error);
+        }
     });
 
 }
