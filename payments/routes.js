@@ -1,69 +1,82 @@
-import Database from "../Database/index.js";
+// import Database from "../Database/index.js";
+import mongoose from "mongoose";
+import Payment from "./model.js";
 
 function PaymentRoutes(app) {
-    app.get("/api/payments", (req, res) => {
-        res.json(Database.payments);
-    });
+    app.get("/api/payments", async (req, res) => {
+        const payments = await Payment.find();
+        res.json(payments);
+    }
+    
+    );
 
-    app.get("/api/users/:user_id/payments", (req, res) => {
+    app.get("/api/users/:user_id/payments", async (req, res) => {
         const { user_id } = req.params;
-        const userPayments = Database.payments.filter(payment => payment.user_id === user_id);
-        
-        if (userPayments.length === 0) {
-            return res.status(404).send('No payments found for this user.');
-        }
-        res.json(userPayments);
-    });
+        const payments = await Payment.find({ user_id });
+        res.json(payments);
+    }
+    );
 
-    app.get("/api/payments/:pid", (req, res) => {
+    app.get("/api/payments/:pid", async (req, res) => {
         const { pid } = req.params;
-        const payment = Database.payments.find(payment => payment.pid === pid);
-
-        if (!payment) {
-            return res.status(404).send('Payment not found.');
-        }
+        const payment = await Payment.findOne({ pid: pid });
         res.json(payment);
     }
     );
 
-    app.delete("/api/payments/:pid", (req, res) => {
-        const { pid } = req.params;
-        const paymentExists = Database.payments.some(payment => payment.pid === pid);
-
-        if (!paymentExists) {
-            return res.status(404).send('Payment not found.');
+    app.delete("/api/payments/:pid", async (req, res) => {
+        try {
+            const { pid } = req.params;
+            const deletedPayment = await Payment.findOneAndDelete({ pid: pid });
+    
+            if (!deletedPayment) {
+                return res.status(404).send('Payment not found.');
+            }
+            res.sendStatus(200);
         }
-
-        Database.payments = Database.payments.filter(payment => payment.pid !== pid);
-        res.status(200).send('Payment deleted successfully.');
-    });
-
-    app.put("/api/payments/:pid", (req, res) => {
-        const { pid } = req.params;
-        const paymentIndex = Database.payments.findIndex(payment => payment.pid === pid);
-
-        if (paymentIndex === -1) {
-            return res.status(404).send('Payment not found.');
+        catch (error) {
+            console.error(error);
+            res.status(500).send(error.message);
         }
-
-        Database.payments[paymentIndex] = {
-            ...Database.payments[paymentIndex],
-            ...req.body
-        };
-        res.status(204).send();
     });
+    
 
-    app.post("/api/users/:user_id/payments", (req, res) => {
-        const { user_id } = req.params;
-        const newPayment = {
-            ...req.body,
-            user_id,
-            pid: 'payment' + new Date().getTime().toString(),
-        };
-
-        Database.payments.push(newPayment);
-        res.status(201).json(newPayment);
+    app.put("/api/payments/:pid", async (req, res) => {
+        try {
+            const { pid } = req.params;
+            const updatedPaymentData = req.body;
+            const updatedPayment = await Payment.findOneAndUpdate({ pid: pid }, updatedPaymentData, { new: true, runValidators: true });
+    
+            if (!updatedPayment) {
+                return res.status(404).send('Payment not found.');
+            }
+            res.json(updatedPayment); // Send back the updated document
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error.message);
+        }
     });
+    
+
+    app.post("/api/users/:user_id/payments", async (req, res) => {
+        try {
+            const { user_id } = req.params;
+            const pid = Date.now().toString(); // Use the current timestamp as pid
+    
+            const payment = new Payment({
+                _id: new mongoose.Types.ObjectId(),
+                pid, // Set the pid as the current timestamp
+                user_id,
+                ...req.body
+            });
+            await payment.save();
+            res.status(201).send(payment);
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).send(error.message);
+        }
+    });    
 }
 
 export default PaymentRoutes;

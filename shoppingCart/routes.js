@@ -1,57 +1,59 @@
 import db from "../Database/index.js";
+import * as dao from "./dao.js";
+import Address from "../addresses/model.js";
+import User from '../users/schema.js';
+import * as daoOrder from "../order/dao.js";
 
 function ShoppingRoutes(app) {
-
-    app.get("/user/:userId/shopping-cart", (req, res) => {
+    const getShoppingCart = async (req, res) => {
         const { userId } = req.params;
-        const shoppingCart = db.shoppingCart.filter((m) => m.userId === userId);
+        const shoppingCart = await dao.findShoppingCart(userId);
         res.send(shoppingCart);
+    };
 
-    });
+    app.get("/user/:userId/shopping-cart", getShoppingCart);
 
-    app.post("/user/:userId/shopping-cart", (req, res) => {
+
+    const postShoppingCart = async (req, res) => {
         const { userId } = req.params;
-        const user = db.users.find((m) => m._id === userId);
+
+        const user = await User.findById(userId);
         const pastOrder = {
             ...req.body,"userName": user.username,
         };
-        db.customerOrder.push(pastOrder);
-        db.shoppingCart = db.shoppingCart.filter((m)=>m.userId !== userId)
-        res.send(db.customerOrder.filter((m) => m.userId === userId));
+        await daoOrder.createPastOrder(pastOrder);
+        await dao.excludeShoppingCart(userId)
+        const pastOrders = await daoOrder.findPastOrders(userId)
+        res.send(pastOrders);
+    };
+    app.post("/user/:userId/shopping-cart", postShoppingCart);
 
-    });
-
-    app.get("/user/:userId/shopping-cart/pastOrders", (req, res) => {
+    app.get("/user/:userId/shopping-cart/pastOrders", async (req, res) => {
         const { userId } = req.params;
-        const pastOrders = db.customerOrder.filter((m) => m.userId === userId);
+        const pastOrders = await daoOrder.findPastOrders(userId);
         res.send(pastOrders);
 
     });
 
-    app.delete("/user/:userId/shopping-cart/:orderId", (req, res) => {
+    const deleteShoppingCart = async (req, res) => {
         const { orderId } = req.params;
-        db.shoppingCart = db.shoppingCart.filter((a) => a._id !== orderId);
+        await dao.deleteShoppingCart(orderId)
 
         res.sendStatus(200);
-    });
+    };
+    app.delete("/user/:userId/shopping-cart/:orderId", deleteShoppingCart);
 
-    app.put("/user/:userId/shopping-cart/:orderId", (req, res) => {
+    const updateShoppingCart = async (req, res) => {
         const { orderId } = req.params;
-        const cartIndex = db.shoppingCart.findIndex(
-            (m) => m._id === orderId);
-        db.shoppingCart[cartIndex] = {
-            ...db.shoppingCart[cartIndex],
-            ...req.body
-        };
-
+        dao.updateShoppingCart(orderId,req.body)
         res.sendStatus(200);
-    });
+    };
+    app.put("/user/:userId/shopping-cart/:orderId", updateShoppingCart);
 
-    app.get("/user/:userId/shopping-cart/addresses", (req, res) => {
+    app.get("/user/:userId/shopping-cart/addresses", async (req, res) => {
         const { userId } = req.params;
-        const addresses = db.addresses.filter((m) => m.userId === userId);
+        const addresses = await Address.find({userId:userId})
         res.send(addresses);
-
     });
 }
 export default ShoppingRoutes;
