@@ -1,37 +1,38 @@
-import db from "../Database/index.js";
+import * as breakfastDao from "./BreakfastSandwiches/dao.js";
+import * as popularDao from "./PopularItems/dao.js";
+import * as subsDao from "./SandwichesAndSubs/dao.js";
 
 function SandwichRoutes(app) {
-	app.get("/api/sandwiches/breakfast", (req, res) => {
-		res.json(db.BreakfastSandwiches);
-	});
-
-	app.get("/api/sandwiches/popular", (req, res) => {
+	const fetchBreakfastSandwiches = async (req, res) => {
 		try {
-            res.json(db.PopularItems);
-        } catch (error) {
-            console.error("Error on /api/sandwiches/popular endpoint:", error);
-            res.status(500).json({ error: "Internal server error" });
-        }
-	});
-
-	app.get("/api/sandwiches/subs", (req, res) => {
-		res.json(db.SandwichesAndSubs);
-	});
-
-	app.get("/api/sandwich/:sId", (req, res) => {
-		const { sId } = req.params;
-		try {
-			const sandwich = db.AllSandwiches.find((s) => s.id === sId);
-			if (!sandwich) {
-				res.status(404).json({ error: "Sandwich not found" });
-				return;
-			}
-			res.json(sandwich);
+			const breakfastSandwiches = await breakfastDao.fetchBreakfastSandwiches();
+			res.send(breakfastSandwiches);
 		} catch (error) {
-			console.error("Error fetching sandwich:", error);
-			res.status(500).json({ error: "Internal server error" });
+			res.status(500).send(error);
 		}
-	});
+	};
+
+	const fetchPopularItems = async (req, res) => {
+		try {
+			const popularItems = await popularDao.fetchPopularItems();
+			res.send(popularItems);
+		} catch (error) {
+			res.status(500).send(error);
+		}
+	};
+
+	const fetchSandwichesAndSubs = async (req, res) => {
+		try {
+			const sandwichesAndSubs = await subsDao.fetchSandwichesAndSubs();
+			res.send(sandwichesAndSubs);
+		} catch (error) {
+			res.status(500).send(error);
+		}
+	};
+
+	app.get("/api/sandwiches/breakfast", fetchBreakfastSandwiches);
+	app.get("/api/sandwiches/popular", fetchPopularItems);
+	app.get("/api/sandwiches/subs", fetchSandwichesAndSubs);
 }
 
 export default SandwichRoutes;

@@ -1,19 +1,19 @@
 [
-	{   "_id": "1",
+	{ "_sid": "1",
 		"name": "Sausage, Egg & Cheese",
 		"description": "",
 		"price": 4.99,
 		"image": "/images/sandwiches/Phi_Gamma_Melta.jpg"
 	},
   {
-    "_id": "7",
+    "_sid": "7",
     "name": "Double Egg and Cheese",
     "description": "",
     "price": 4.99,
     "image": "/images/sandwiches/Phi_Gamma_Melta.jpg"
   },
   {
-    "_id": "3",
+    "_sid": "3",
     "name": "Ham, Egg, and Cheese",
     "description": "",
     "price": 4.99,
