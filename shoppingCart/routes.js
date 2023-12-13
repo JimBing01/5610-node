@@ -3,6 +3,8 @@ import * as dao from "./dao.js";
 import Address from "../addresses/model.js";
 import User from '../users/schema.js';
 import * as daoOrder from "../order/dao.js";
+import {ObjectId} from "bson";
+
 
 function ShoppingRoutes(app) {
     const getShoppingCart = async (req, res) => {
@@ -16,14 +18,16 @@ function ShoppingRoutes(app) {
 
     const postShoppingCart = async (req, res) => {
         const { userId } = req.params;
-
+        console.log(userId)
         const user = await User.findById(userId);
+        console.log(user)
         const pastOrder = {
             ...req.body,"userName": user.username,
         };
         await daoOrder.createPastOrder(pastOrder);
         await dao.excludeShoppingCart(userId)
         const pastOrders = await daoOrder.findPastOrders(userId)
+        console.log(pastOrders)
         res.send(pastOrders);
     };
     app.post("/user/:userId/shopping-cart", postShoppingCart);
@@ -45,6 +49,7 @@ function ShoppingRoutes(app) {
 
     const updateShoppingCart = async (req, res) => {
         const { orderId } = req.params;
+
         dao.updateShoppingCart(orderId,req.body)
         res.sendStatus(200);
     };
