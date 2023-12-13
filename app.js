@@ -42,19 +42,17 @@ app.use(session({
 
 app.use(express.json());
 
+HomeRoutes(app);
 PublicUserRoutes(app);
 SandwichReviews(app);
 SandwichRoutes(app) 
 UserRoutes(app);
 ShoppingRoutes(app);
 OrderRoutes(app);
-HomeRoutes(app);
 SearchBarRoutes(app);
 AddressRoutes(app);
 PaymentRoutes(app);
 FavoritesRoutes(app);
-
-
 
 app.listen(process.env.PORT || 4000)
 // app.listen(4000, () => {

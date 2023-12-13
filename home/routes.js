@@ -1,114 +1,143 @@
 import db from "../Database/index.js";
 import multer from 'multer';
 import path from 'path';
+import * as breakfastDao from "./BreakfastSandwiches/dao.js";
+import * as popularDao from "./PopularItems/dao.js";
+import * as subsDao from "./SandwichesAndSubs/dao.js";
 
 function HomeRoutes(app) {
+    console.log("HomeRoutes is being set up");
 
-    app.post("/home/:userId/sandwichModal", (req, res) => {
-        const { userId } = req.params;
-        const newCart = {...req.body,quantity:1}
-        db.shoppingCart.push(newCart);
-        res.send(db.shoppingCart.filter((m) => m.userId === userId));
+    app.get("/api/test-home", (req, res) => {
+        res.send("HomeRoutes test route is working");
     });
+    
+    // app.post("/home/:userId/sandwichModal", (req, res) => {
+    //     const { userId } = req.params;
+    //     const newCart = {...req.body,quantity:1}
+    //     db.shoppingCart.push(newCart);
+    //     res.send(db.shoppingCart.filter((m) => m.userId === userId));
+    // });
 
-    app.get("/home", (req, res) => {
+    const fetchSandwiches = async (req, res) => {
+        try {
+            const { sandwichKind } = req.query;
+            let sandwiches;
 
-        const {sandwichKind} = req.query;
+            switch (sandwichKind) {
+                case 'popular':
+                    sandwiches = await popularDao.fetchPopularItems();
+                    break;
+                case 'breakfast':
+                    sandwiches = await breakfastDao.fetchBreakfastSandwiches();
+                    break;
+                case 'subs':
+                    sandwiches = await subsDao.fetchSandwichesAndSubs();
+                    break;
+                default:
+                    throw new Error('Invalid sandwich kind');
+            }
 
-        let sandwiches = 'error find';
-        if(sandwichKind == 'popular'){
-            sandwiches = db.PopularItems;
-        } else if(sandwichKind == 'breakfast') {
-            sandwiches = db.BreakfastSandwiches;
-        } else if(sandwichKind == 'subs') {
-            sandwiches = db.SandwichesAndSubs;
+            res.send(sandwiches);
+        } catch (error) {
+            res.status(500).send(error.message);
         }
-        res.send(sandwiches);
+    };
+    
+    // 从fetchSandwiches到此我测试过了没报错，从addSandwich这里开始报错，后面的function我先comment掉了，准备一个一个测试来着
+    const addSandwich = async (req, res) => {
+        try {
+            console.log("Received sandwich data:", req.body.sandwich, "and activeMenu:", req.body.activeMenu);
+            const { sandwich, activeMenu } = req.body;
+            const newSandwich = { ...sandwich, _id: new Date().getTime().toString(), price: parseFloat(sandwich.price) };
+            let sandwiches;
 
-    });
+            switch (activeMenu) {
+                case 'popular':
+                    await popularDao.addNewSandwich(newSandwich);
+                    sandwiches = await popularDao.fetchPopularItems();
+                    break;
+                case 'breakfast':
+                    await breakfastDao.addNewSandwich(newSandwich);
+                    sandwiches = await breakfastDao.fetchBreakfastSandwiches();
+                    break;
+                case 'subs':
+                    await subsDao.addNewSandwich(newSandwich);
+                    sandwiches = await subsDao.fetchSandwichesAndSubs();
+                    break;
+                default:
+                    throw new Error('Invalid menu');
+            }
 
-    app.post("/home",(req, res) => {
-        const { sandwich } = req.body;
-        const { activeMenu } = req.body;
-        const newSandwich = {...sandwich,_id:new Date().getTime().toString(),price:parseFloat(sandwich.price)}
-        let sandwiches = null
-
-        if(activeMenu == 'popular'){
-            db.PopularItems.push(newSandwich)
-            sandwiches = db.PopularItems;
-        } else if(activeMenu == 'breakfast') {
-            db.BreakfastSandwiches.push(newSandwich);
-            sandwiches = db.BreakfastSandwiches;
-        } else if(activeMenu == 'subs') {
-            sandwiches = db.SandwichesAndSubs.push(newSandwich);
-            sandwiches = db.SandwichesAndSubs;
+            res.send(sandwiches);
+        } catch (error) {
+            console.error("Error in addSandwich:", error);
+            res.status(500).send(error.message || 'Internal Server Error');
         }
+    };
 
-        res.send(sandwiches);
-    });
+    // const updateSandwich = async (req, res) => {
+    //     try {
+    //         const { sandwich, activeMenu } = req.body;
+    //         let updatedSandwich;
+    //         switch (activeMenu) {
+    //             case 'popular':
+    //                 updatedSandwich = await popularDao.updateSandwich(sandwich._id, sandwich);
+    //                 break;
+    //             case 'breakfast':
+    //                 updatedSandwich = await breakfastDao.updateSandwich(sandwich._id, sandwich);
+    //                 break;
+    //             case 'subs':
+    //                 updatedSandwich = await subsDao.updateSandwich(sandwich._id, sandwich);
+    //                 break;
+    //             default:
+    //                 throw new Error('Invalid menu');
+    //         }
+    //         res.send(updatedSandwich);
+    //     } catch (error) {
+    //         res.status(500).send(error.message);
+    //     }
+    // };
 
-    app.put("/home", (req, res) => {
-        const { sandwich } = req.body;
-        const { activeMenu } = req.body;
-        console.log(sandwich)
+    // const deleteSandwich = async (req, res) => {
+    //     try {
+    //         const { sandwichId, activeMenu } = req.query;
+    //         //let sandwiches;
 
-        let sandwiches = null
-        if(activeMenu == 'popular'){
-            const orderIndex = db.PopularItems.findIndex(
-                (m) => m._id === sandwich._id);
+    //         switch (activeMenu) {
+    //             case 'popular':
+    //                 await popularDao.deleteSandwich(sandwichId);
+    //                 break;
+    //             case 'breakfast':
+    //                 await breakfastDao.deleteSandwich(sandwichId);
+    //                 break;
+    //             case 'subs':
+    //                 await subsDao.deleteSandwich(sandwichId);
+    //                 break;
+    //             default:
+    //                 throw new Error('Invalid menu');
+    //         }
+    //         const updatedPopularItems = await popularDao.fetchPopularItems();
+    //         const updatedBreakfastSandwiches = await breakfastDao.fetchBreakfastSandwiches();
+    //         const updatedSandwichesAndSubs = await subsDao.fetchSandwichesAndSubs();
 
-            db.PopularItems[orderIndex] = {
-                ...db.PopularItems[orderIndex],
-                ...sandwich,
-                price:parseFloat(sandwich.price)
-            };
-            sandwiches = db.PopularItems;
-        } else if(activeMenu == 'breakfast') {
-            const orderIndex = db.BreakfastSandwiches.findIndex(
-                (m) => m._id === sandwich._id);
 
-            db.BreakfastSandwiches[orderIndex] = {
-                ...db.BreakfastSandwiches[orderIndex],
-                ...sandwich,
-                price:parseFloat(sandwich.price)
-            };
+    //         res.send({
+    //             popular: updatedPopularItems,
+    //             breakfast: updatedBreakfastSandwiches,
+    //             subs: updatedSandwichesAndSubs
+    //         });
+    //     } catch (error) {
+    //         res.status(500).send(error.message);
+    //     }
 
-            sandwiches = db.BreakfastSandwiches;
-        } else if(activeMenu == 'subs') {
-            const orderIndex = db.SandwichesAndSubs.findIndex(
-                (m) => m._id === sandwich._id);
-
-            db.SandwichesAndSubs[orderIndex] = {
-                ...db.SandwichesAndSubs[orderIndex],
-                ...sandwich,
-                price:parseFloat(sandwich.price)
-            };
-            sandwiches = db.SandwichesAndSubs;
-        }
-
-        res.send(sandwiches);
-    });
-
-    app.delete("/home", (req, res) => {
-
-        const {sandwichId} = req.query;
-        const {activeMenu} = req.query;
-
-        console.log(sandwichId)
-        let sandwiches = 'error find';
-        if(activeMenu == 'popular'){
-            db.PopularItems = db.PopularItems.filter((a) => a._id !== sandwichId);
-            sandwiches = db.PopularItems;
-        } else if(activeMenu == 'breakfast') {
-            db.BreakfastSandwiches = db.BreakfastSandwiches.filter((a) => a._id !== sandwichId);
-            sandwiches = db.BreakfastSandwiches;
-        } else if(activeMenu == 'subs') {
-            db.SandwichesAndSubs = db.SandwichesAndSubs.filter((a) => a._id !== sandwichId);
-            sandwiches = db.SandwichesAndSubs;
-        }
-
-        res.send(sandwiches);
-
-    });
+        
+        
+    app.get("/api/home", fetchSandwiches);
+    app.post("/api/home", addSandwich);
+    // app.put("/api/home", updateSandwich);
+    // app.delete("/api/home", deleteSandwich);
+    // };
 }
+
 export default HomeRoutes;

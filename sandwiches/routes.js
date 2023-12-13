@@ -1,6 +1,6 @@
-import * as breakfastDao from "./BreakfastSandwiches/dao.js";
-import * as popularDao from "./PopularItems/dao.js";
-import * as subsDao from "./SandwichesAndSubs/dao.js";
+import * as breakfastDao from "../home/BreakfastSandwiches/dao.js";
+import * as popularDao from "../home/PopularItems/dao.js";
+import * as subsDao from "../home/SandwichesAndSubs/dao.js";
 
 function SandwichRoutes(app) {
 	const fetchBreakfastSandwiches = async (req, res) => {
