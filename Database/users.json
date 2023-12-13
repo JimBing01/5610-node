@@ -1,124 +1,113 @@
 [
   {
-    "_id": "1",
     "username": "smith",
     "password": "smith123",
     "firstName": "Sam",
     "lastName": "Smith",
     "email": "sam@smith.com",
     "dob": "05-29-1970",
-    "role": "CUSTOMER",
+    "role": "customer",
     "phone": "8578881234"
   },
   {
-    "_id": "121",
     "username": "iron_man",
     "password": "stark123",
     "firstName": "Tony",
     "lastName": "Stark",
     "email": "sydney@stark.com",
     "dob": "05-29-2001",
-    "role": "CUSTOMER",
+    "role": "customer",
     "phone": "8579990000"
   },
   {
-    "_id": "122",
     "username": "dark_knight",
     "password": "wayne123",
     "firstName": "Bruce",
     "lastName": "Wayne",
     "email": "bruce@wayne.com",
     "dob": "02-19-1982",
-    "role": "CUSTOMER",
+    "role": "customer",
     "phone": "8576661234"
   },
   {
-    "_id": "123",
     "username": "capt_america",
     "password": "rogers123",
     "firstName": "Steve",
     "lastName": "Rogers",
     "email": "steve@avengers.com",
     "dob": "07-04-1998",
-    "role": "CUSTOMER",
+    "role": "customer",
     "phone": "6171234567"
   },
   {
-    "_id": "124",
     "username": "black_widow",
     "password": "romanoff123",
     "firstName": "Natasha",
     "lastName": "Romanoff",
     "email": "natasha@avengers.com",
     "dob": "11-22-1984",
-    "role": "CUSTOMER",
+    "role": "customer",
     "phone": "6173339090"
   },
   {
-    "_id": "125",
     "username": "thor_odinson",
     "password": "mjolnir123",
     "firstName": "Thor",
     "lastName": "Odinson",
     "email": "thor@asgard.com",
     "dob": "05-25-1982",
-    "role": "CUSTOMER",
+    "role": "customer",
     "phone": "8578881234"
   },
   {
-    "_id": "126",
     "username": "hulk_smash",
     "password": "banner123",
     "firstName": "Bruce",
     "lastName": "Banner",
     "email": "bruce@avengers.com",
     "dob": "12-18-1969",
-    "role": "CUSTOMER",
+    "role": "customer",
     "phone": "3475556666"
   },
 
   {
-    "_id": "127",
     "username": "ring_bearer",
     "password": "shire123",
     "firstName": "Frodo",
     "lastName": "Baggins",
     "email": "frodo@shire.com",
     "dob": "09-22-1968",
-    "role": "CUSTOMER",
+    "role": "customer",
     "phone": "3478880000"
   },
   {
-    "_id": "128",
     "username": "strider",
     "password": "aragorn123",
     "firstName": "Aragorn",
     "lastName": "Elessar",
     "email": "aragorn@gondor.com",
     "dob": "03-01-1998",
-    "role": "CUSTOMER",
+    "role": "customer",
     "phone": "8570007979"
   },
   {
-    "_id": "129",
     "username": "elf_archer",
     "password": "legolas123",
     "firstName": "Legolas",
     "lastName": "Greenleaf",
     "email": "legolas@mirkwood.com",
     "dob": "07-15-1987",
-    "role": "MERCHANT",
+    "role": "merchant",
     "phone": "8573331010"
   },
   {
-    "_id": "130",
     "username": "tom_brady",
     "password": "tom123",
     "firstName": "Tom",
     "lastName": "Brady",
     "email": "tombrady@gamil.com",
     "dob": "07-15-1979",
-    "role": "DELIVERY",
+    "role": "delivery",
     "phone": "8570006464"
   }
 ]
