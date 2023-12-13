@@ -1,47 +1,37 @@
 import db from "../Database/index.js";
+import * as dao from "./dao.js";
+
 
 function OrderRoutes(app) {
 
-    app.get("/user/:userId/pastOrders", (req, res) => {
+    app.get("/user/:userId/pastOrders", async (req, res) => {
         const { userId } = req.params;
-        const pastOrders = db.customerOrder.filter((m) => m.userId === userId);
+        const pastOrders = await dao.findPastOrders(userId);
 
         res.send(pastOrders);
 
     });
 
-    app.put("/user/:userId/pastOrders", (req, res) => {
+    app.put("/user/:userId/pastOrders", async (req, res) => {
         const { userId } = req.params;
         const pastOrder = req.body;
 
-        const orderIndex = db.customerOrder.findIndex(
-            (m) => m._id === pastOrder._id);
-
-        db.customerOrder[orderIndex] = {
-            ...db.customerOrder[orderIndex],
-            ...req.body
-        };
+        const orderIndex = await dao.updatePastOrder(pastOrder._id,pastOrder)
 
         res.sendStatus(204);
     });
 
-    app.get("/restaurant/pastOrders", (req, res) => {
+    app.get("/restaurant/pastOrders",async (req, res) => {
 
-        const pastOrders = db.customerOrder;
+        const pastOrders = await dao.findAll();
 
         res.send(pastOrders);
 
     });
 
-    app.put("/restaurant/pastOrders", (req, res) => {
+    app.put("/restaurant/pastOrders", async (req, res) => {
         const pastOrder = req.body;
-        const orderIndex = db.customerOrder.findIndex(
-            (m) => m._id === pastOrder._id);
-
-        db.customerOrder[orderIndex] = {
-            ...db.customerOrder[orderIndex],
-            ...req.body
-        };
+        await dao.updatePastOrder(pastOrder._id,pastOrder)
 
         res.sendStatus(204);
     });

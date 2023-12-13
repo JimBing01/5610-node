@@ -13,11 +13,9 @@ import SandwichRoutes from './sandwiches/routes.js';
 import SandwichReviews from './sandwiches/reviews/routes.js';
 import PublicUserRoutes from './users/publicUser/routes.js';
 import FavoritesRoutes from './favorites/routes.js';
-import mongoose from 'mongoose';
-// mongoose.connect("mongodb://127.0.0.1:27017/website");
-mongoose.connect("mongodb://127.0.0.1:27017/wollaston")
-    .then(() => console.log('MongoDB connected successfully'))
-    .catch(err => console.error('MongoDB connection error:', err));
+
+import mongoose from "mongoose";
+mongoose.connect("mongodb://127.0.0.1:27017/website");
 
 const app = express();
 
@@ -31,9 +29,9 @@ app.use(cors({
 
 // Set up the session middleware
 app.use(session({
-                    secret: process.env.SESSION_SECRET || 'a_super_secret_string', // Use an environment variable for the secret in production
+                    secret: "any string",
                     resave: false,
-                    saveUninitialized: true,
+                    saveUninitialized: false,
                     cookie: {
                         httpOnly: true,
                         secure: process.env.NODE_ENV === 'production', // Set to true if using https
@@ -55,4 +53,9 @@ AddressRoutes(app);
 PaymentRoutes(app);
 FavoritesRoutes(app);
 
+
+
 app.listen(process.env.PORT || 4000)
+// app.listen(4000, () => {
+//     console.log('Server is running on port 4000');
+// });
