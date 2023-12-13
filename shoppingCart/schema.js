@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const shoppingCartSchema = new mongoose.Schema({
+        _id:String,
         userId: String,
         name:String,
         description:String,

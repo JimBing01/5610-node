@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/JimBing01/kanbas-node-server-app#readme",
   "dependencies": {
+    "bson": "^6.2.0",
     "connect-multiparty": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
