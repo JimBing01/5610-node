@@ -2,7 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import cors from "cors";
 import "dotenv/config";
-import router from "./users/routes.js";
+import UserRoutes from "./users/routes.js";
 import ShoppingRoutes from "./shoppingCart/routes.js";
 import OrderRoutes from "./order/routes.js";
 import HomeRoutes from "./home/routes.js";
@@ -14,8 +14,10 @@ import SandwichReviews from './sandwiches/reviews/routes.js';
 import PublicUserRoutes from './users/publicUser/routes.js';
 import FavoritesRoutes from './favorites/routes.js';
 import mongoose from 'mongoose';
-// mongoose.connect("mongodb://127.0.0.1:27017/website");
-mongoose.connect("mongodb://127.0.0.1:27017/wollaston");
+
+mongoose.connect("mongodb://127.0.0.1:27017/wollaston")
+    .then(() => console.log('MongoDB connected successfully'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
 
 const app = express();
@@ -25,10 +27,6 @@ app.use(cors({
                  credentials: true,
                  origin: process.env.FRONTEND_URL // Replace with your actual Netlify domain
              }));
-
-// Use routers as middleware
-app.use('/api/users', router); // Mount the userRouter on the '/api/users' path
-
 
 // Set up the session middleware
 app.use(session({
@@ -47,7 +45,7 @@ app.use(express.json());
 PublicUserRoutes(app);
 SandwichReviews(app);
 SandwichRoutes(app) 
-// UserRoutes(app);
+UserRoutes(app);
 ShoppingRoutes(app);
 OrderRoutes(app);
 HomeRoutes(app);
@@ -56,9 +54,4 @@ AddressRoutes(app);
 PaymentRoutes(app);
 FavoritesRoutes(app);
 
-
-
 app.listen(process.env.PORT || 4000)
-// app.listen(4000, () => {
-//     console.log('Server is running on port 4000');
-// });

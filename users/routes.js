@@ -99,94 +99,198 @@
 // export default UserRoutes;
 
 // users/routes.js
-import express from 'express';
-import * as dao from './dao.js';
+// import express from 'express';
+// import * as dao from './dao.js';
+//
+// const router = express.Router();
+//
+// // POST: Create a new user
+// router.post('/signup', async (req, res) => {
+//     try {
+//         const { username, email } = req.body;
+//         // Check if the user already exists by username or email
+//         const existingUserByUsername = await dao.findUserByUsername(username);
+//         const existingUserByEmail = await dao.findUserByEmail(email);
+//         if (existingUserByUsername || existingUserByEmail) {
+//             return res.status(409).send({ message: "User already exists." });
+//         }
+//         // Create new user
+//         const newUser = await dao.createUser(req.body);
+//         res.status(201).json(newUser);
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
+//
+// // POST: Login a user
+// router.post('/signin', async (req, res) => {
+//     try {
+//         const { username, password } = req.body;
+//         const user = await dao.findUserByCredentials(username, password);
+//         if (user) {
+//             req.session.userId = user._id; // assuming you have session set up
+//             res.json(user);
+//         } else {
+//             res.status(401).json({ message: 'Invalid credentials' });
+//         }
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
+//
+// // GET: Retrieve all users
+// router.get('/', async (req, res) => {
+//     try {
+//         const users = await dao.findAllUsers();
+//         res.json(users);
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
+//
+// // GET: Retrieve a single user by ID
+// router.get('/:userId', async (req, res) => {
+//     try {
+//         const user = await dao.findUserById(req.params.userId);
+//         if (user) {
+//             res.json(user);
+//         } else {
+//             res.status(404).json({ message: 'User not found' });
+//         }
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
+//
+// // PUT: Update a user by ID
+// router.put('/:userId', async (req, res) => {
+//     try {
+//         const updatedUser = await dao.updateUser(req.params.userId, req.body);
+//         res.json(updatedUser);
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
+//
+// // DELETE: Remove a user by ID
+// router.delete('/:userId', async (req, res) => {
+//     try {
+//         await dao.deleteUser(req.params.userId);
+//         res.status(200).json({ message: 'User successfully deleted' });
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
+//
+// // POST: Logout the current user
+// router.post('/signout', (req, res) => {
+//     req.session.destroy();
+//     res.clearCookie('connect.sid'); // assuming you have cookie set up
+//     res.json({ message: 'User successfully signed out' });
+// });
+//
+// export default router;
 
-const router = express.Router();
+// users/routes.js
+import User from './schema.js'; // Import the User model you created based on the schema
 
-// POST: Create a new user
-router.post('/signup', async (req, res) => {
-    try {
-        const { username, email } = req.body;
-        // Check if the user already exists by username or email
-        const existingUserByUsername = await dao.findUserByUsername(username);
-        const existingUserByEmail = await dao.findUserByEmail(email);
-        if (existingUserByUsername || existingUserByEmail) {
-            return res.status(409).send({ message: "User already exists." });
+function UserRoutes(app) {
+    app.delete("/api/users/:uid", async (req, res) => {
+        try {
+            const { uid } = req.params;
+            await User.deleteOne({ _id: uid });
+            res.sendStatus(200);
+        } catch (error) {
+            res.status(500).send(error);
         }
-        // Create new user
-        const newUser = await dao.createUser(req.body);
-        res.status(201).json(newUser);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+    });
 
-// POST: Login a user
-router.post('/signin', async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const user = await dao.findUserByCredentials(username, password);
-        if (user) {
-            req.session.userId = user._id; // assuming you have session set up
-            res.json(user);
-        } else {
-            res.status(401).json({ message: 'Invalid credentials' });
+    app.put("/api/users/:uid", async (req, res) => {
+        try {
+            const { uid } = req.params;
+            const updatedUser = await User.findByIdAndUpdate(uid, req.body, { new: true });
+            res.status(200).send(updatedUser);
+        } catch (error) {
+            res.status(500).send(error);
         }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+    });
 
-// GET: Retrieve all users
-router.get('/', async (req, res) => {
-    try {
-        const users = await dao.findAllUsers();
-        res.json(users);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// GET: Retrieve a single user by ID
-router.get('/:userId', async (req, res) => {
-    try {
-        const user = await dao.findUserById(req.params.userId);
-        if (user) {
-            res.json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
+    app.get("/api/users", async (req, res) => {
+        try {
+            if (req.query.email) {
+                const userExists = await User.exists({ email: req.query.email });
+                res.json({ exists: userExists });
+            } else {
+                const users = await User.find();
+                res.json(users);
+            }
+        } catch (error) {
+            res.status(500).send(error);
         }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+    });
 
-// PUT: Update a user by ID
-router.put('/:userId', async (req, res) => {
-    try {
-        const updatedUser = await dao.updateUser(req.params.userId, req.body);
-        res.json(updatedUser);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+    app.get("/api/users/:uid", async (req, res) => {
+        try {
+            const { uid } = req.params;
+            const user = await User.findById(uid);
+            if (user) {
+                res.send(user);
+            } else {
+                res.status(404).send({ message: 'User not found' });
+            }
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
 
-// DELETE: Remove a user by ID
-router.delete('/:userId', async (req, res) => {
-    try {
-        await dao.deleteUser(req.params.userId);
-        res.status(200).json({ message: 'User successfully deleted' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+    app.post("/api/users", async (req, res) => {
+        try {
+            const newUser = new User(req.body);
+            const savedUser = await newUser.save();
+            res.status(201).send(savedUser);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
 
-// POST: Logout the current user
-router.post('/signout', (req, res) => {
-    req.session.destroy();
-    res.clearCookie('connect.sid'); // assuming you have cookie set up
-    res.json({ message: 'User successfully signed out' });
-});
+    app.post('/api/users/signin', async (req, res) => {
+        try {
+            const user = await User.findOne({
+                                                email: req.body.email,
+                                                password: req.body.password // Remember to hash the password in production
+                                            });
+            if (user) {
+                req.session.userId = user._id; // Store the user ID in the session
+                res.json(user);
+            } else {
+                res.status(401).json({ message: 'Invalid credentials' });
+            }
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
 
-export default router;
+    app.post('/api/users/signout', (req, res) => {
+        req.session.destroy(); // Destroy the session
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        res.json({ message: 'You have been signed out' });
+    });
+
+    app.post('/api/users/signup', async (req, res) => {
+        try {
+            const { email, password, firstName, lastName, username, dob, phone, role } = req.body;
+            const existingUser = await User.findOne({ email: email });
+            if (existingUser) {
+                res.status(409).send({ message: "Email already exists." });
+            } else {
+                const newUser = new User({ email, password, firstName, lastName, username, dob, phone, role });
+                const savedUser = await newUser.save();
+                res.status(201).send(savedUser);
+            }
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+}
+
+export default UserRoutes;
