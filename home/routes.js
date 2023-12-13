@@ -11,6 +11,8 @@ function HomeRoutes(app) {
     app.get("/api/test-home", (req, res) => {
         res.send("HomeRoutes test route is working");
     });
+
+    // 第一个你写的addShoppingCart function我没动，暂时comment掉了
     
     // app.post("/home/:userId/sandwichModal", (req, res) => {
     //     const { userId } = req.params;
