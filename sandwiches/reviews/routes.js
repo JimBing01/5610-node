@@ -1,18 +1,23 @@
 import db from "../../Database/index.js";
 import * as daoCustomer from "../../order/dao.js";
 import * as dao from "./dao.js";
+import mongoose from "mongoose";
 
 function SandwichReviews(app) {
     app.get("/api/sandwiches/:sId/reviews", async (req, res) => {
         const sandwichId = req.params.sId;
         const {frontSandwich} = req.query
+        if(await dao.findBySandwichId(sandwichId) == null){
+            let newSandwich = {name:frontSandwich.name,sandwichId:sandwichId,reviews:[],
+                _id:new mongoose.Types.ObjectId()}
+            await dao.createSandwichReview(newSandwich)
+        }
 
         let customerOrder;
         await daoCustomer.findAll().then(docs => {
             customerOrder = docs; // docs is an array of documents
             dao.findBySandwichId(sandwichId).then(sandwich =>{
                 sandwich.reviews = [];
-
                 for(let i = 0; i < customerOrder.length; i++) {
                     let food = customerOrder[i].food;
                     for(let j = 0; j < food.length; j++) {
@@ -43,16 +48,20 @@ function SandwichReviews(app) {
                 }
 
                 dao.updateSandwich(sandwichId,sandwich);
-                console.log(sandwich.sandwichId == sandwichId);
+
 
                 res.json(sandwich.reviews || []);
             }).catch(err => {
                 console.error(err); // Error handling
             })
             });
+    });
 
 
-
+    app.put("/api/sandwiches/:sId/reviews", async (req, res) => {
+        const sandwichId = req.params.sId;
+        const sandwich = req.body;
+        await dao.updateSandwich(sandwichId,sandwich);
 
     });
 }
