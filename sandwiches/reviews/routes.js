@@ -32,14 +32,6 @@ function SandwichReviews(app) {
                 }
             }
         }
-
-
-
-        if (!sandwich) {
-            res.status(404).json({ error: "Sandwich not found" });
-            return;
-        }
-        res.json(sandwich.reviews || []);
     });
 }
 
