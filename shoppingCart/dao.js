@@ -5,15 +5,17 @@ export const excludeShoppingCart = (userId) => model.deleteMany({userId: userId}
 export const deleteShoppingCart = (orderId) => model.deleteOne({ _id: orderId });
 export const updateShoppingCart = (orderId, body) =>
     model.updateOne({ _id: orderId }, { $set: body });
+export const addShoppingCart = (item) => model.create(item);
+export const findById = (userId) => model.findById(userId);
 
 
 export const findAll = () => model.find();
 
 
 
-export const create = (user) => model.create(user);
 
-export const findById = (userId) => model.findById(userId);
+
+
 export const findByUsername = (username) =>
     model.findOne({ username: username });
 export const findUserByCredentials = (username, password) =>
