@@ -12,7 +12,7 @@ function SandwichReviews(app) {
                 _id:new mongoose.Types.ObjectId()}
             await dao.createSandwichReview(newSandwich)
         }
-
+        console.log(frontSandwich)
         let customerOrder;
         await daoCustomer.findAll().then(docs => {
             customerOrder = docs; // docs is an array of documents
@@ -47,9 +47,6 @@ function SandwichReviews(app) {
                     return;
                 }
 
-                dao.updateSandwich(sandwichId,sandwich);
-
-
                 res.json(sandwich.reviews || []);
             }).catch(err => {
                 console.error(err); // Error handling
@@ -58,12 +55,12 @@ function SandwichReviews(app) {
     });
 
 
-    app.put("/api/sandwiches/:sId/reviews", async (req, res) => {
+    /*app.put("/api/sandwiches/:sId/reviews", async (req, res) => {
         const sandwichId = req.params.sId;
         const sandwich = req.body;
         await dao.updateSandwich(sandwichId,sandwich);
 
-    });
+    });*/
 }
 
 export default SandwichReviews;
