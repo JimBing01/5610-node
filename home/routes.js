@@ -6,7 +6,7 @@ import * as popularDao from "./PopularItems/dao.js";
 import * as subsDao from "./SandwichesAndSubs/dao.js";
 
 function HomeRoutes(app) {
-    console.log("HomeRoutes is being set up");
+    //console.log("HomeRoutes is being set up");
 
     app.get("/api/test-home", (req, res) => {
         res.send("HomeRoutes test route is working");

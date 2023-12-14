@@ -15,8 +15,8 @@ import PublicUserRoutes from './users/publicUser/routes.js';
 import FavoritesRoutes from './favorites/routes.js';
 // import "dotenv/config";
 import mongoose from "mongoose";
-
-mongoose.connect("mongodb://127.0.0.1:27017/website");
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/website'
+mongoose.connect(CONNECTION_STRING);
 
 const app = express();
 
